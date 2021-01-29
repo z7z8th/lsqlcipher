@@ -129,7 +129,7 @@ static const char *sqlite_bu_meta   = ":sqlite3:bu";
 static const char *sqlite_ctx_meta  = ":sqlite3:ctx";
 static int sqlite_ctx_meta_ref;
 
-/* Lua 5.3 introduced an integer type, but depending on the implementation, it could be 32 
+/* Lua 5.3 introduced an integer type, but depending on the implementation, it could be 32
 ** or 64 bits (or something else?). This helper macro tries to do "the right thing."
 */
 
@@ -631,7 +631,7 @@ static sdb *newdb (lua_State *L) {
     db->progress_cb =
     db->progress_udata =
     db->trace_cb =
-    db->trace_udata = 
+    db->trace_udata =
 #if !defined(LSQLITE_OMIT_UPDATE_HOOK) || !LSQLITE_OMIT_UPDATE_HOOK
     db->update_hook_cb =
     db->update_hook_udata =
@@ -892,6 +892,41 @@ static int db_isopen(lua_State *L) {
     sdb *db = lsqlite_getdb(L, 1);
     lua_pushboolean(L, db->db != NULL ? 1 : 0);
     return 1;
+}
+
+static int do_lsqlite_key(lua_State *L, int rekey) {
+    const char *db_name;
+    const char *key;
+    size_t key_size;
+
+    sdb *db = lsqlite_getdb(L, 1);
+
+    if (lua_type(L, 2) != LUA_TSTRING) {
+        lua_pushliteral(L, "key is not a string");
+        lua_error(L);
+        return 0;
+    }
+
+    key = lua_tolstring(L, 2, &key_size);
+    if (!key) {
+        luaL_typerror(L, 2, "key string");
+    }
+
+    db_name = lua_tolstring(L, 3, NULL);
+    if (!db_name)
+        db_name = "main";
+
+    lua_pushinteger(L, rekey ? sqlite3_rekey_v2(db->db, db_name, key, key_size)
+                             : sqlite3_key_v2(db->db, db_name, key, key_size));
+    return 1;
+}
+
+static int lsqlite_key(lua_State *L) {
+    return do_lsqlite_key(L, 0);
+}
+
+static int lsqlite_rekey(lua_State *L) {
+    return do_lsqlite_key(L, 1);
 }
 
 static int db_last_insert_rowid(lua_State *L) {
@@ -1310,7 +1345,7 @@ static int db_trace(lua_State *L) {
 ** Params: database, callback function, userdata
 **
 ** callback function:
-** Params: userdata, {one of SQLITE_INSERT, SQLITE_DELETE, or SQLITE_UPDATE}, 
+** Params: userdata, {one of SQLITE_INSERT, SQLITE_DELETE, or SQLITE_UPDATE},
 **          database name, table name (containing the affected row), rowid of the row
 */
 static void db_update_hook_callback(void *user, int op, char const *dbname, char const *tblname, sqlite3_int64 rowid) {
@@ -1325,7 +1360,7 @@ static void db_update_hook_callback(void *user, int op, char const *dbname, char
     lua_pushinteger(L, op);
     lua_pushstring(L, dbname); /* update_hook database name */
     lua_pushstring(L, tblname); /* update_hook database name */
-    
+
     PUSH_INT64(L, rowid, lua_pushfstring(L, "%ll", rowid));
 
     /* call lua function */
@@ -1374,7 +1409,7 @@ static int db_update_hook(lua_State *L) {
 ** callback function:
 ** Params: userdata
 ** Returned value: Return false or nil to continue the COMMIT operation normally.
-**  return true (non false, non nil), then the COMMIT is converted into a ROLLBACK. 
+**  return true (non false, non nil), then the COMMIT is converted into a ROLLBACK.
 */
 static int db_commit_hook_callback(void *user) {
     sdb *db = (sdb*)user;
@@ -2016,7 +2051,7 @@ static int db_close_vm(lua_State *L) {
 }
 
 /* From: Wolfgang Oertl
-When using lsqlite3 in a multithreaded environment, each thread has a separate Lua 
+When using lsqlite3 in a multithreaded environment, each thread has a separate Lua
 environment, but full userdata structures can't be passed from one thread to another.
 This is possible with lightuserdata, however. See: lsqlite_open_ptr().
 */
@@ -2102,7 +2137,7 @@ static int lsqlite_open_memory(lua_State *L) {
 }
 
 /* From: Wolfgang Oertl
-When using lsqlite3 in a multithreaded environment, each thread has a separate Lua 
+When using lsqlite3 in a multithreaded environment, each thread has a separate Lua
 environment, but full userdata structures can't be passed from one thread to another.
 This is possible with lightuserdata, however. See: db_get_ptr().
 */
@@ -2216,7 +2251,7 @@ static const struct {
     SC(OPEN_FULLMUTEX)
     SC(OPEN_SHAREDCACHE)
     SC(OPEN_PRIVATECACHE)
-    
+
     /* terminator */
     { NULL, 0 }
 };
@@ -2225,6 +2260,10 @@ static const struct {
 
 static const luaL_Reg dblib[] = {
     {"isopen",              db_isopen               },
+
+    { "key",                lsqlite_key             },
+    { "rekey",              lsqlite_rekey           },
+
     {"last_insert_rowid",   db_last_insert_rowid    },
     {"changes",             db_changes              },
     {"total_changes",       db_total_changes        },
@@ -2377,7 +2416,7 @@ static void create_meta(lua_State *L, const char *name, const luaL_Reg *lib) {
     lua_pop(L, 1);
 }
 
-LUALIB_API int luaopen_lsqlite3(lua_State *L) {
+LUALIB_API int luaopen_lsqlcipher(lua_State *L) {
     create_meta(L, sqlite_meta, dblib);
     create_meta(L, sqlite_vm_meta, vmlib);
     create_meta(L, sqlite_bu_meta, dbbulib);

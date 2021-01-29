@@ -1,6 +1,6 @@
-# Makefile for lsqlite3 library for Lua
+# Makefile for lsqlcipher library for Lua
 
-LIBNAME= lsqlite3
+LIBNAME= lsqlcipher
 
 LUAEXE= lua
 
@@ -9,11 +9,11 @@ ROCKSPEC= $(shell find . -name $(LIBNAME)-*-*.rockspec)
 all: install
 
 install:
-	luarocks make $(ROCKSPEC)
+	luarocks make $(ROCKSPEC) SQLCIPHER_INCDIR="$$HOME/.local/include/sqlcipher" SQLCIPHER_LIBDIR="$$HOME/.local/lib"
 
-test: 
+test:
 	$(LUAEXE) test/test.lua
-	$(LUAEXE) test/tests-sqlite3.lua lsqlite3
-	$(LUAEXE) test/tests-sqlite3.lua lsqlite3complete
+	$(LUAEXE) test/tests-sqlite3.lua lsqlcipher
+	# $(LUAEXE) test/tests-sqlite3.lua lsqlite3complete
 
 .PHONY: all test install

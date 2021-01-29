@@ -1,4 +1,4 @@
-local sqlite3 = require("lsqlite3")
+local sqlite3 = require("lsqlcipher")
 
 local width = 78
 local function line(pref, suff)
@@ -19,6 +19,8 @@ line(sqlite3.version())
 
 os.remove('test.db')
 db = sqlite3.open('test.db')
+
+assert(db:key('0123456abcdef') == sqlite3.OK)
 
 line(nil, 'db:exec')
 db:exec('CREATE TABLE t(a, b)')

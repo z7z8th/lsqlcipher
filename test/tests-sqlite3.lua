@@ -39,6 +39,16 @@ local lunit = require "lunit"
 
 local tests_sqlite3
 
+-- compat
+
+function lunit_wrap (name, fcn)
+  tests_sqlite3['test_o_'..name] = fcn
+end
+
+function lunit_TestCase (name)
+  return module(name, package.seeall, lunit.testcase)
+end
+
 if _VERSION >= 'Lua 5.2' then
 
     tests_sqlite3 = lunit.module('tests-sqlite3','seeall')
@@ -46,20 +56,11 @@ if _VERSION >= 'Lua 5.2' then
 
 else
 
-    module('tests_sqlite3', lunit.testcase, package.seeall)
+    module('tests_sqlite3', package.seeall, lunit.testcase)
     tests_sqlite3 = _M
 
 end
 
--- compat
-
-function lunit_wrap (name, fcn)
-   tests_sqlite3['test_o_'..name] = fcn
-end
-
-function lunit_TestCase (name)
-   return lunit.module(name,'seeall')
-end
 
 -------------------------------
 -- Print library versions    --
@@ -100,6 +101,8 @@ end
 
 function db_funcs.test()
   local db = db_funcs.db
+  assert_function( db.key )
+  assert_function( db.rekey )
   assert_function( db.close )
   assert_function( db.exec )
 --e  assert_function( db.irows )
