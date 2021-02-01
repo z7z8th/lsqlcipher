@@ -1,3 +1,4 @@
+-- rockspec_format = "3.0"
 package = "lsqlcipher"
 version = "0.9.5-1"
 source = {
@@ -15,7 +16,7 @@ description = {
     ]],
     license = "MIT",
     homepage = "https://github.com/z7z8th/lsqlcipher",
-    issues_url = "https://github.com/z7z8th/lsqlcipher/issues",
+    -- issues_url = "https://github.com/z7z8th/lsqlcipher/issues",
 }
 dependencies = {
     "lua >= 5.1, < 5.5",
