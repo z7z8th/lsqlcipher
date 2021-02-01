@@ -17,7 +17,8 @@ description = {
     homepage = "http://lua.sqlite.org/"
 }
 dependencies = {
-    "lua >= 5.1, < 5.5"
+    "lua >= 5.1, < 5.5",
+    "sqlcipher"
 }
 external_dependencies = {
     SQLCIPHER = {
