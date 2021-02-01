@@ -20,6 +20,6 @@ build = {
         lsqlcipher = {
         },
     },
-    build_command = './configure $(SQLCIPHER_CONFIGURE) --disable-tcl --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC" LDFLAGS="-L/opt/local/lib -lcrypto" && make',
+    build_command = './configure $(SQLCIPHER_CONFIGURE) --disable-tcl --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC -I/usr/local/openresty/openssl/include/sqlcipher" LDFLAGS="-L/opt/local/lib -L/usr/local/openresty/openssl/lib -lcrypto" && make',
     install_command = "make install",
 }
