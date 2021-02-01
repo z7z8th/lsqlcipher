@@ -13,6 +13,10 @@ description = {
         The lsqlcipher module supports the creation and manipulation of SQLite3+SQLCipher databases.
         Most sqlite3 functions are called via an object-oriented interface to either
         database or SQL statement objects.
+
+        Functions added to lsqlite:
+            sqlite:key(key[, dbname])
+            sqlite:rekey(key[, dbname])
     ]],
     license = "MIT",
     homepage = "https://github.com/z7z8th/lsqlcipher",
