@@ -7,14 +7,15 @@ source = {
 description = {
     summary = "A binding for Lua to the SQLite3+SQLCipher database library",
     detailed = [[
-        lsqlcipher is a thin wrapper around the public domain SQLite3 database engine. SQLite3 is
-        dynamically linked to lsqlcipher. The statically linked alternative is lsqlciphercomplete.
-        The lsqlcipher module supports the creation and manipulation of SQLite3 databases.
+        lsqlcipher is a thin wrapper around the public domain SQLite3+SQLCipher database engine. lsqlcipher is
+        dynamically linked to sqlcipher. The statically linked alternative is lsqlciphercomplete.
+        The lsqlcipher module supports the creation and manipulation of SQLite3+SQLCipher databases.
         Most sqlite3 functions are called via an object-oriented interface to either
         database or SQL statement objects.
     ]],
     license = "MIT",
-    homepage = "http://lua.sqlite.org/"
+    homepage = "https://github.com/z7z8th/lsqlcipher",
+    issues_url = "https://github.com/z7z8th/lsqlcipher/issues",
 }
 dependencies = {
     "lua >= 5.1, < 5.5",
