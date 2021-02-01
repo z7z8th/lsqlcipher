@@ -1,8 +1,8 @@
 package = "sqlcipher"
 version = "4.4.2-1"
 source = {
-    -- url = "https://github.com/sqlcipher/sqlcipher/archive/v4.4.2.zip",
-    url = 'file:///Users/tmp/src/sqlcipher-4.4.2.zip',
+    url = "https://github.com/sqlcipher/sqlcipher/archive/v4.4.2.zip",
+    -- url = 'file:///Users/tmp/src/sqlcipher-4.4.2.zip',
     file = "sqlcipher-4.4.2.zip"
 }
 description = {
