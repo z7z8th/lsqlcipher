@@ -6,10 +6,16 @@ LUAEXE= lua
 
 ROCKSPEC= $(shell find . -name $(LIBNAME)-*-*.rockspec)
 
+PLATFORM=$(shell uname -s)
+
+ifeq ($(PLATFORM),Darwin)
+LUAROCKS_OPT=SQLCIPHER_INCDIR="$$HOME/.local/include/sqlcipher" SQLCIPHER_LIBDIR="$$HOME/.local/lib"
+endif
+
 all: install
 
 install:
-	luarocks make $(ROCKSPEC) SQLCIPHER_INCDIR="$$HOME/.local/include/sqlcipher" SQLCIPHER_LIBDIR="$$HOME/.local/lib"
+	luarocks make $(ROCKSPEC) $(LUAROCKS_OPT)
 
 test:
 	$(LUAEXE) test/test.lua

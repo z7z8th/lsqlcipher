@@ -21,7 +21,8 @@ dependencies = {
 }
 external_dependencies = {
     SQLCIPHER = {
-        header = "sqlite3.h"
+        header = "sqlite3.h",
+        library = "sqlcipher",
     }
 }
 build = {
