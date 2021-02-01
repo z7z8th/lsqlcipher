@@ -1,8 +1,8 @@
 package = "sqlcipher"
 version = "4.4.2-1"
 source = {
-    url = "https://github.com/sqlcipher/sqlcipher/archive/v4.4.2.zip",
-    -- url = 'file:///Users/tmp/src/sqlcipher-4.4.2.zip',
+    -- url = "https://github.com/sqlcipher/sqlcipher/archive/v4.4.2.zip",
+    url = 'file:///Users/tmp/src/sqlcipher-4.4.2.zip',
     file = "sqlcipher-4.4.2.zip"
 }
 description = {
@@ -20,6 +20,6 @@ build = {
         lsqlcipher = {
         },
     },
-    build_command = './configure $(SQLCIPHER_CONFIGURE) --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC" LDFLAGS="-L/opt/local/lib -lcrypto" && make',
+    build_command = './configure $(SQLCIPHER_CONFIGURE) --disable-tcl --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC" LDFLAGS="-L/opt/local/lib -lcrypto" && make',
     install_command = "make install",
 }
