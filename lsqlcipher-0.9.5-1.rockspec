@@ -1,8 +1,8 @@
 package = "lsqlcipher"
 version = "0.9.5-1"
 source = {
-    url = "https://github.com/sqlcipher/sqlcipher/archive/v4.4.2.zip",
-    file = "sqlcipher-4.4.2.zip"
+    url = "https://github.com/z7z8th/lsqlcipher/archive/0.9.5-1.zip",
+    file = "lsqlcipher-0.9.5-1.zip"
 }
 description = {
     summary = "A binding for Lua to the SQLite3+SQLCipher database library",
