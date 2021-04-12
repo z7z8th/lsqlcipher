@@ -1,9 +1,9 @@
 -- rockspec_format = "3.0"
 package = "lsqlcipher"
-version = "0.9.5-2"
+version = "0.9.5-3"
 source = {
-    url = "https://github.com/z7z8th/lsqlcipher/archive/0.9.5-2.zip",
-    file = "lsqlcipher-0.9.5-2.zip"
+    url = "https://github.com/z7z8th/lsqlcipher/archive/0.9.5-3.zip",
+    file = "lsqlcipher-0.9.5-3.zip"
 }
 description = {
     summary = "A binding for Lua to the SQLite3+SQLCipher database library",
@@ -26,12 +26,12 @@ dependencies = {
     "lua >= 5.1, < 5.5",
     "sqlcipher"
 }
-external_dependencies = {
-    SQLCIPHER = {
-        header = "sqlcipher/sqlite3.h",
-        library = "sqlcipher",
-    }
-}
+-- external_dependencies = {
+--     SQLCIPHER = {
+--         header = "sqlcipher/sqlite3.h",
+--         library = "sqlcipher",
+--     }
+-- }
 build = {
     type = "builtin",
     modules = {
