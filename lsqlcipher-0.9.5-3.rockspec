@@ -42,12 +42,12 @@ build = {
             incdirs = {
                         "/opt/local/include/sqlcipher",
                         "/usr/local/include/sqlcipher",
-                        "$(SQLCIPHER_INCDIR)"
+                        -- "$(SQLCIPHER_INCDIR)"
                     },
             libdirs = {
                         "/opt/local/lib",
                         "/usr/local/lib",
-                        "$(SQLCIPHER_LIBDIR)"
+                        -- "$(SQLCIPHER_LIBDIR)"
                     }
         },
     },
