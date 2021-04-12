@@ -38,7 +38,7 @@ build = {
         lsqlcipher = {
             sources = { "lsqlcipher.c" },
             defines = {'LSQLITE_VERSION="0.9.5"', 'SQLITE_HAS_CODEC'},
-            libraries = { "sqlcipher" },
+            -- libraries = { "sqlcipher" },
             incdirs = {
                         "/opt/local/include/sqlcipher",
                         "/usr/local/include/sqlcipher",
